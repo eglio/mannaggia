@@ -119,8 +119,9 @@ while [ "$nds" != 0 ]
 	if [ "$audioflag" = true ]
 		then
 		$PLAYER "$MANNAGGIAURL" 2>/dev/null
-		
-	if [ "$audioflag" = true ]
+	fi
+	
+	if [ "$ttsflag" = true ]
 		then
 		espeak -vit "$MANNAGGIA" 2>/dev/null
 	fi
