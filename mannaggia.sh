@@ -15,6 +15,7 @@
 ############################################################
 # parametri da command line:
 # --audio : attiva mplayer per fargli pronunciare i santi
+# --tts: usa la sintesi vocale (richiede espeak)
 # --spm <n> : numero di santi per minuto
 # --wall : invia l'output a tutte le console : attenzione , se non siete root o sudoers disattivare il flag -n
 # --nds <n> : numero di santi da invocare (di default continua all'infinito)
@@ -26,6 +27,7 @@ nds=-1
 pot=-1
 ndsflag=false
 wallflag=false
+ttsflag=false
 DELSTRING1="</FONT>"
 DELSTRING2="</b>"
 DEFPLAYER="mplayer -really-quiet -ao alsa"
@@ -49,6 +51,12 @@ for parm in "$@"
 	if [ "$parm" = "--wall" ]
 		then 
 		wallflag=true
+	fi
+	
+	# leggi dai parametri se c'e' audio da tts
+	if [ "$parm" = "--tts" ]
+		then 
+		ttsflag=true
 	fi
 
 	# se spmflag
@@ -111,6 +119,10 @@ while [ "$nds" != 0 ]
 	if [ "$audioflag" = true ]
 		then
 		$PLAYER "$MANNAGGIAURL" 2>/dev/null
+		
+	if [ "$audioflag" = true ]
+		then
+		espeak -vit "$MANNAGGIA" 2>/dev/null
 	fi
 
 	sleep "$spm"
